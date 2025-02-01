@@ -92,9 +92,9 @@
         
         <div id="info" class="content active">
             <label>Bot Token</label>
-            <input type="text" class="input-field" placeholder="Enter bot token"><br>
+            <input type="text" id="botToken" class="input-field" placeholder="Enter bot token"><br>
             <label>Server ID</label>
-            <input type="text" class="input-field" placeholder="Enter server ID">
+            <input type="text" id="serverId" class="input-field" placeholder="Enter server ID">
         </div>
         
         <div id="functions" class="content">
@@ -110,11 +110,17 @@
                     <div class="toggle-circle"></div>
                 </div>
             </div>
+            <div class="toggle-container">
+                <span>Change Guild Name</span>
+                <div class="toggle-button" onclick="toggleSwitch(this); showGuildNamePopup()">
+                    <div class="toggle-circle"></div>
+                </div>
+            </div>
         </div>
         
         <div id="settings" class="content">
             <button onclick="refreshAll()">Refresh all Functions / Info</button>
-            <button onclick="startNuker()">Start Nuker</button>
+            <button id="nukerButton" onclick="startNuker()">Start Nuker</button>
         </div>
     </div>
     
@@ -132,11 +138,27 @@
         }
         
         function refreshAll() {
+            document.getElementById('botToken').value = "";
+            document.getElementById('serverId').value = "";
             alert('Refreshing all settings...');
         }
         
         function startNuker() {
-            alert('Nuker is starting...');
+            let button = document.getElementById('nukerButton');
+            if (button.innerText === "Start Nuker") {
+                button.innerText = "Nuker is Running Click to Stop";
+                button.style.backgroundColor = "red";
+            } else {
+                button.innerText = "Start Nuker";
+                button.style.backgroundColor = "";
+            }
+        }
+        
+        function showGuildNamePopup() {
+            let newName = prompt("Enter new guild name:");
+            if (newName) {
+                alert("Guild name changed to " + newName);
+            }
         }
     </script>
 </body>
